@@ -1,4 +1,4 @@
-import { TextInput, View, StyleSheet, Button, Alert } from "react-native"
+import { TextInput, View, StyleSheet, Text, Button, Alert } from "react-native"
 import { useState } from "react"
 function CustomerInfoForm () {
   const [formData, setFormData] = useState({name : '', phoneNumber : '', address : ''})
@@ -18,22 +18,23 @@ function CustomerInfoForm () {
   }
     return (
     <View>
-      <TextInput 
-        onChange={nameOnChange}
-        placeholder="Customer Name"
-      />
-      <TextInput 
-        onChange={addressOnChange}
-        placeholder="Customer Address"
-      />
-      <TextInput 
-        onChange={phoneNumberOnChange}
-        placeholder="Customer Phone Number"
-      />
-      <Button 
-        title="Save Customer Info"
-        onPress={submitFormData()}
-      />
+      <View>
+        <TextInput 
+          onChange={nameOnChange}
+          placeholder="Customer Name"
+          />
+        <TextInput 
+          onChange={addressOnChange}
+          on
+          placeholder="Customer Address"
+          />
+        <TextInput 
+          onChange={phoneNumberOnChange}
+          placeholder="Customer Phone Number"
+          />
+        </View>
+        <Button title='Save Customer Info' onPress={submitFormData}/>
+    
     </View>
 )
 }

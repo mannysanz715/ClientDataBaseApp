@@ -1,8 +1,10 @@
 import { StyleSheet, Text,View} from "react-native";
 import { useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
-import ContactModal from "../../components/ContactModal/ContactModal";
-import CustomerInfoForm from "../../components/CustomerInfoForm/CustomerInfoForm";
+
+//?Components
+import NavBar from "../components/NavBar/NavBar";
+import ContactModal from "../components/ContactModal/ContactModal";
+import CustomerInfoForm from "../components/CustomerInfoForm/CustomerInfoForm";
 
 export default function Home ({contacts}){
   const [modalState, setModalState] = useState(false)

@@ -1,11 +1,13 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import Home from "./HomePage/page";
+import { Link } from "expo-router";
 import { useState, useEffect } from "react";
 import * as Contacts from 'expo-contacts';
 
+//?Pages
+import Login from "./Login";
+
 export default function Page() {
 const [contactsList, setContacts] = useState([]);
-
 useEffect(() => {
   (async () => {
     const { status } = await Contacts.requestPermissionsAsync();
@@ -20,9 +22,11 @@ useEffect(() => {
     }
   })();
 }, []);
+
+
   return (
     <ScrollView style={styles.container}>
-      <Home contacts={contactsList}/>
+      <Login />
     </ScrollView>
   );
 }
@@ -30,5 +34,5 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-  },
+  },zvb
 });
