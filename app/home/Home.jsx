@@ -9,12 +9,23 @@ export default function Home ({contacts}){
   function changeModalState(e){
     setModalState(!modalState)
   }
-
   return(
     <View>
       <NavBar />
-      <Text onPress={changeModalState}>Open Contacts List</Text>
+      <Text onPress={changeModalState} style={styles.button}>Open Contacts List</Text>
       {modalState && <ContactModal contacts={contacts}/>}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    width: 100,
+    height: 40,
+    textAlign: 'center',
+    borderWidth: .5,
+    backgroundColor: '#ADD8E6',
+  }
+}
+)
+

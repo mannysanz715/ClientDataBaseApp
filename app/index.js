@@ -11,7 +11,8 @@ useEffect(() => {
     const { status } = await Contacts.requestPermissionsAsync();
     if (status === 'granted') {
       const { data } = await Contacts.getContactsAsync({
-        fields: [Contacts.Fields.Emails],
+
+        fields: [Contacts.Fields.Addresses, Contacts.Fields.PhoneNumbers],
       });
       if (data.length > 0) {
         setContacts(data)
@@ -20,7 +21,7 @@ useEffect(() => {
   })();
 }, []);
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <Home contacts={contactsList}/>
     </ScrollView>
   );
@@ -28,22 +29,6 @@ useEffect(() => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
+    padding: 20,
   },
 });
