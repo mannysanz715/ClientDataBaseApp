@@ -4,11 +4,13 @@ import { useState } from "react";
 import * as authService from '../service/authService.js'
 
 export default function Login () {
-  const router = useRouter()
   const [loginData, setLoginData] = useState({email: '', password: ''});
   const [emailValidError, setEmailValidError] = useState('');
   
   async function submitLogin(){
+    console.log('Login Data', loginData)
+    console.log(loginData.email)
+    console.log(loginData.password)
     if(loginData.email && !emailValidError && loginData.password){
       try {
         console.log('login')
@@ -16,15 +18,18 @@ export default function Login () {
       } catch (error) {
         console.log(error)
       }
-    }else console.log('Enter Email and Password')
+  }else{ 
+    console.log(process.env.BACKEND_URL)
+    console.log('Enter Email and Password')}
+
   }
 
   function setEmailData(e){
-    setLoginData({...loginData, email : e.target.value})
+    setLoginData({...loginData, email : e})
   }
 
   function setPasswordData(e){
-    setLoginData({...loginData, password : e.target.value})
+    setLoginData({...loginData, password : e})
   }
 
   function handleValidEmail(val) {
@@ -41,7 +46,7 @@ export default function Login () {
   return (
     <View>
       <Text>Login</Text>
-      {emailValidError && loginData.email ? <Text>{emailValidError}</Text> : null}
+      {emailValidError ? <Text>{emailValidError}</Text> : null}
       <TextInput
         placeholder="Email"
         value={loginData.email}
@@ -49,14 +54,17 @@ export default function Login () {
         autoCapitalize="none"
         onChange={setEmailData}
         onChangeText={value => {
+          setEmailData(value);
           handleValidEmail(value);
         }}
       />
 
       <TextInput 
         autoCapitalize="none" 
-        onChange={setPasswordData} 
-        textContentType="password" 
+        textContentType="password"
+        onChangeText={value => {
+          setPasswordData(value);
+        }}
         secureTextEntry={true} 
         placeholder="Password"/>
         <Button 

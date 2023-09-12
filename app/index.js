@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import * as Contacts from 'expo-contacts';
 
@@ -7,6 +7,7 @@ import * as Contacts from 'expo-contacts';
 import Login from "./Login";
 
 export default function Page() {
+  const router = useRouter()
 const [contactsList, setContacts] = useState([]);
 useEffect(() => {
   (async () => {
@@ -23,7 +24,6 @@ useEffect(() => {
   })();
 }, []);
 
-
   return (
     <ScrollView style={styles.container}>
       <Login />
@@ -34,5 +34,5 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-  },zvb
+  },
 });

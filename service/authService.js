@@ -1,5 +1,6 @@
-// import * as tokenService from './tokenService'
-const BASE_URL = `${process.env.REACT_APP_BACK_END_SERVER_URL}/api/auth`
+import * as tokenService from './tokenService'
+const BASE_URL = `https://client-backend-v3.fly.dev/api/auth`
+
 import { useRouter } from "expo-router"
 // async function signup(user) {
 //   try {
@@ -31,12 +32,16 @@ async function login(credentials) {
   const router = useRouter()
   try {
     console.log("Credentials", credentials)
-    const res = await fetch(`http://localhost:3001/api/auth/login`, {
+    const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
     })
     const json = await res.json()
+    console.log(json)
+    tokenService.save('token', json.token)
+
+    tokenService.getValueFor('token')
     if(json.token) router.replace('/Home')
   }catch(err){
     console.log(err)
