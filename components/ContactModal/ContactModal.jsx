@@ -1,15 +1,12 @@
-import { Text, ScrollView, StyleSheet, CheckBox} from "react-native"
+import { Text, ScrollView, StyleSheet} from "react-native"
 
 import { useState } from "react"
 function ContactModal({ contacts }){
   // console.log(contacts[26].name, contacts[26].phoneNumbers[0].number, '\n', contacts[26].addresses[0].formattedAddress)
   return (
       <ScrollView style={styles.container}>
-        {contacts.map((contact, idx)=>
-        <>
-          <Text style={styles.item} key={idx}>{contact.name}</Text> 
-          <CheckBox />
-        </>
+        {contacts.map((contact, idx)=>      
+        <Text style={styles.item} key={idx}>{contact.name}</Text> 
         )}
       </ScrollView>
 )

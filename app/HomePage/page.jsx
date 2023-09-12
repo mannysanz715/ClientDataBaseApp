@@ -2,6 +2,7 @@ import { StyleSheet, Text,View} from "react-native";
 import { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import ContactModal from "../../components/ContactModal/ContactModal";
+import CustomerInfoForm from "../../components/CustomerInfoForm/CustomerInfoForm";
 
 export default function Home ({contacts}){
   const [modalState, setModalState] = useState(false)
@@ -13,6 +14,7 @@ export default function Home ({contacts}){
     <View>
       <NavBar />
       <Text onPress={changeModalState} style={styles.button}>Open Contacts List</Text>
+      <CustomerInfoForm />
       {modalState && <ContactModal contacts={contacts}/>}
     </View>
   )

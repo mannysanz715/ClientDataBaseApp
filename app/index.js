@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import Home from "./home/Home";
+import Home from "./HomePage/page";
 import { useState, useEffect } from "react";
 import * as Contacts from 'expo-contacts';
 
