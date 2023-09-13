@@ -15,4 +15,8 @@ async function getValueFor(key){
   }
 }
 
-export { save, getValueFor }
+async function logOut(key){
+  let result = await SecureStore.deleteItemAsync(key)
+}
+
+export { save, getValueFor, logOut }

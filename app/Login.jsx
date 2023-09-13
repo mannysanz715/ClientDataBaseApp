@@ -1,25 +1,21 @@
-import { View, Text, ScrollView, Button, TextInput } from "react-native";
-import { Link, Redirectm, useRouter } from "expo-router";
+import { View, Text, Button, TextInput } from "react-native";
+
 import { useState } from "react";
 import * as authService from '../service/authService.js'
+
 
 export default function Login () {
   const [loginData, setLoginData] = useState({email: '', password: ''});
   const [emailValidError, setEmailValidError] = useState('');
   
   async function submitLogin(){
-    console.log('Login Data', loginData)
-    console.log(loginData.email)
-    console.log(loginData.password)
     if(loginData.email && !emailValidError && loginData.password){
       try {
-        console.log('login')
         await authService.login(loginData)
       } catch (error) {
         console.log(error)
       }
   }else{ 
-    console.log(process.env.BACKEND_URL)
     console.log('Enter Email and Password')}
 
   }

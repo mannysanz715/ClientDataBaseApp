@@ -31,22 +31,22 @@ import { useRouter } from "expo-router"
 async function login(credentials) {
   const router = useRouter()
   try {
-    console.log("Credentials", credentials)
     const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
     })
     const json = await res.json()
-    console.log(json)
-    tokenService.save('token', json.token)
 
-    tokenService.getValueFor('token')
+    tokenService.save('tokenKey', json.token)
+
     if(json.token) router.replace('/Home')
   }catch(err){
     console.log(err)
   }
 }
+
+
 
 // async function changePassword(credentials) {
 //   try {
