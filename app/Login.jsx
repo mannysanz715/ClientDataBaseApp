@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput } from "react-native";
+import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
 
 import { useState } from "react";
 import * as authService from '../service/authService.js'
@@ -31,19 +31,20 @@ export default function Login () {
   function handleValidEmail(val) {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (val.length === 0) {
-      setEmailValidError('email address must be enter');
+      setEmailValidError('Email address must be entered.');
     } else if (reg.test(val) === false) {
-      setEmailValidError('enter valid email address');
+      setEmailValidError('Enter a valid email address.');
     } else if (reg.test(val) === true) {
       setEmailValidError('');
     }
   };
 
   return (
-    <View>
-      <Text>Login</Text>
+    <View style={style.loginPageContainer}>
+      <Text style={style.loginTitle}>Login</Text>
       {emailValidError ? <Text>{emailValidError}</Text> : null}
       <TextInput
+        style={style.textInput}
         placeholder="Email"
         value={loginData.email}
         autoCorrect={false}
@@ -53,9 +54,10 @@ export default function Login () {
           setEmailData(value);
           handleValidEmail(value);
         }}
-      />
+        />
 
       <TextInput 
+        style={style.textInput}
         autoCapitalize="none" 
         textContentType="password"
         onChangeText={value => {
@@ -63,9 +65,51 @@ export default function Login () {
         }}
         secureTextEntry={true} 
         placeholder="Password"/>
-        <Button 
-          title="Login"
-          onPress={submitLogin}/>
+        <Pressable style={style.loginButton} onPress={submitLogin}>
+            <Text style={style.loginButtonText}>Login</Text>
+        </Pressable>
     </View>
+
   )
 }   
+
+
+const style = StyleSheet.create({
+  textInput:{
+    height: 40,
+    fontSize: 16,
+    borderWidth: .25,
+    borderRadius: 20,
+    width: 275,
+    paddingLeft:15,
+  },
+  loginTitle:{
+    fontSize: 38,
+    fontWeight: "500",
+    color: '#1e90ff'
+  },
+  loginPageContainer:{
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 20,
+    paddingBottom: 40,
+  },
+  loginButton:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#00bfff',
+  },
+
+  loginButtonText:{
+    fontSize: 16,
+    color: 'white',
+  }
+})
+
+
