@@ -5,6 +5,7 @@ import * as Contacts from 'expo-contacts';
 import * as tokenService from '../service/tokenService.js'
 //?Pages
 import Login from "./Login";
+import Home from "./Home.jsx";
 
 export default function Page() {
   //? State Setup
@@ -22,14 +23,13 @@ export default function Page() {
 
   return (
     <View style={styles.container}>
-      { !token ? <Login /> : router.replace('/Home')}
+      { !token ? <Login /> : <Home />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     height: '100%',
   },
 });

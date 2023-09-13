@@ -10,9 +10,6 @@ async function getValueFor(key){
   if(result){
     return result
   }
-  else{
-    return console.log("Invalid Key")
-  }
 }
 
 async function logOut(key){

@@ -1,6 +1,6 @@
-import { StyleSheet, Text,View, Button} from "react-native";
+import { StyleSheet, Text,View, Pressable, Button} from "react-native";
 import { useState, useEffect } from "react";
-import { useRouter } from "expo-router";
+import { useRouter, Link } from "expo-router";
 import * as Contacts from 'expo-contacts';
 import * as tokenCtrl from '../service/tokenService.js';
 import * as customerService from '../service/customerService.js';
@@ -10,6 +10,7 @@ import * as customerService from '../service/customerService.js';
 import NavBar from "../components/NavBar/NavBar.jsx";
 import CustomerInfoForm from "../components/CustomerInfoForm/CustomerInfoForm.jsx";
 import ContactModal from '../components/ContactModal/ContactModal.jsx'
+import { ScrollView } from "react-native-gesture-handler";
 export default function Home (){
   const router = useRouter()
   const [customers, setCustomers] = useState()
@@ -37,6 +38,10 @@ export default function Home (){
   //     })();
   // },[])
 
+  function buttonPress(customerId){
+    
+  }
+
   async function logUserOut(){
     await tokenCtrl.logOut('tokenKey')
     router.replace('/')
@@ -49,12 +54,12 @@ export default function Home (){
   return(
     <View>
       <NavBar />
-      <Text onPress={changeModalState} style={styles.button}>Open Contacts List</Text>
+      <ScrollView style={styles.customerCardContainer}>
       {customers && customers.map((customer, idx)=>
-        <Text key={idx}>{customer.name}</Text>
+        <Link style={styles.customerCardTextContainer} href={{pathname: "", params: {id: customer._id}}}><Pressable style={styles.customerCardTextContainer} onPress={()=> buttonPress(customer._id)} key={idx}><Text style={styles.customerCard}> {customer.name} </Text></Pressable></Link>
       )}
+      </ScrollView>
       <Button title="Log Out" onPress={logUserOut}/>
-      <CustomerInfoForm />
     </View>
   )
 }
@@ -66,6 +71,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: .5,
     backgroundColor: '#ADD8E6',
+  },
+  customerCard:{
+    padding: 10,
+    width: 'auto',
+    height: 'auto',
+  },
+
+  customerCardTextContainer: {
+    display: 'flex',
+    justifyContent: "center",
+    alignItems:'center',
+    height: 75,
+    borderBottomWidth: .2,
+    borderColor: 'gray',
+  },
+  customerCardContainer:{
+    height: '75%',
   }
 }
 )

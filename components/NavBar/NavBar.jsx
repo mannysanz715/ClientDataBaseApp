@@ -11,7 +11,7 @@ export default function NavBar(){
 
 const style = StyleSheet.create({
   container:{
-    height: '20%',
+    height: 80,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -21,6 +21,5 @@ const style = StyleSheet.create({
     color: 'white',
     fontSize: 24,
     fontWeight: '700'
-
   }
 })

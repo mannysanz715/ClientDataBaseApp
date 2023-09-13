@@ -94,7 +94,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 20,
-    paddingBottom: 40,
+    paddingBottom: 80,
   },
   loginButton:{
     alignItems: 'center',
