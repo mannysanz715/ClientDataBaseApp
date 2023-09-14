@@ -1,15 +1,13 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Link, Redirect, useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import * as Contacts from 'expo-contacts';
 import * as tokenService from '../service/tokenService.js'
 //?Pages
-import Login from "./Login";
+import Login from "./Login.jsx";
 import Home from "./Home.jsx";
 
 export default function Page() {
   //? State Setup
-  const router = useRouter()
   const [token, setToken] = useState('')
 
   //? Token Check

@@ -1,4 +1,4 @@
-import { StyleSheet, Text,View, Pressable, Button} from "react-native";
+import { StyleSheet, Text,View, Pressable, Button, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import { useRouter, Link } from "expo-router";
 import * as Contacts from 'expo-contacts';
@@ -10,7 +10,6 @@ import * as customerService from '../service/customerService.js';
 import NavBar from "../components/NavBar/NavBar.jsx";
 import CustomerInfoForm from "../components/CustomerInfoForm/CustomerInfoForm.jsx";
 import ContactModal from '../components/ContactModal/ContactModal.jsx'
-import { ScrollView } from "react-native-gesture-handler";
 export default function Home (){
   const router = useRouter()
   const [customers, setCustomers] = useState()
@@ -39,7 +38,7 @@ export default function Home (){
   // },[])
 
   function buttonPress(customerId){
-    
+    console.log('hi')
   }
 
   async function logUserOut(){
@@ -56,7 +55,11 @@ export default function Home (){
       <NavBar />
       <ScrollView style={styles.customerCardContainer}>
       {customers && customers.map((customer, idx)=>
-        <Link style={styles.customerCardTextContainer} href={{pathname: "", params: {id: customer._id}}}><Pressable style={styles.customerCardTextContainer} onPress={()=> buttonPress(customer._id)} key={idx}><Text style={styles.customerCard}> {customer.name} </Text></Pressable></Link>
+        <View key={idx} style={styles.linkContainer}>
+          <Link onPress={buttonPress} style={styles.linkButton} canGoBack={true} href={{pathname: "/Details", params: {id: customer._id}}}>
+            {customer.name}
+          </Link>
+        </View>
       )}
       </ScrollView>
       <Button title="Log Out" onPress={logUserOut}/>
@@ -72,22 +75,26 @@ const styles = StyleSheet.create({
     borderWidth: .5,
     backgroundColor: '#ADD8E6',
   },
-  customerCard:{
-    padding: 10,
-    width: 'auto',
-    height: 'auto',
+  linkButton:{
+    backgroundColor: 'white',
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 17,
+    fontWeight: "600",
   },
-
-  customerCardTextContainer: {
-    display: 'flex',
-    justifyContent: "center",
-    alignItems:'center',
-    height: 75,
-    borderBottomWidth: .2,
+  linkContainer:{
     borderColor: 'gray',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    borderBottomWidth: .2,
+    width:'100%',
+    height: 75,
   },
   customerCardContainer:{
     height: '75%',
+    display:'flex',
+    width: '100%',
   }
 }
 )
