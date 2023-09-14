@@ -16,7 +16,7 @@ async function getAllCustomers(){
 async function getCustomerDetails(customerId){
   try {
     const token = await tokenService.getValueFor('tokenKey')
-    const res = await fetch(`${BASE_URL}/customers`, {
+    const res = await fetch(`${BASE_URL}/customers/${customerId}`, {
       method: 'GET',
       headers: {'Authorization': `Bearer ${token}`},
     })
