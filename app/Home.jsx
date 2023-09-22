@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Pressable, Button, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
-import { useRouter, Link } from "expo-router";
+import { useRouter, Link, withLayoutContext } from "expo-router";
 import * as Contacts from 'expo-contacts';
 import * as tokenCtrl from '../service/tokenService.js';
 import * as customerService from '../service/customerService.js';
@@ -22,7 +22,6 @@ export default function Home (){
   const [modalState, setModalState] = useState(false)
   const [createContactModal, setCreateContactModal] = useState(false)
   const [contactListHeight, setContactListHeight] = useState()
-
 
   useEffect(() => {
     (async ()=>{
@@ -64,17 +63,21 @@ export default function Home (){
   function changeContactModal(){
     setCreateContactModal(!createContactModal)
   }
-
+  function createManualContact(){
+    router.push({pathname:"/CustomerForm"})
+  }
 
 
   return(
 
+  <View style={
+    styles.mainContainer
+  }>
     <View style={styles.container}>
       <NavBar />
-    
       <TextInput onChangeText={(text)=> handleSearchTerm(text)} placeholder="Search For Customer" style={styles.searchBar} />
       {searchTerm ? 
-      <ScrollView>
+      <ScrollView style={styles.customerCardContainer}>
         {customers.filter(customer =>{
                 const tempSearchTerm = searchTerm.toLowerCase()
                 let customerName = customer.name.toLowerCase()
@@ -95,21 +98,86 @@ export default function Home (){
 
       </ScrollView>
       }
-
-      {createContactModal ? <CreateCustomerForm/> : null}
-        <Pressable style={styles.footer} onPress={changeContactModal}>
-          {createContactModal ? <Text>Exit Contact Modal</Text> : <Text>Create New Contact</Text>}
+      </View>
+        <Pressable style={styles.footer} >
+          {createContactModal ? <View style={styles.createCustomerContainer}>
+            <Pressable onPress={createManualContact} style={styles.createCustomerButtonManual}><Text style={styles.createCustomerButtonText}>Create Manually</Text></Pressable>
+            <Pressable style={styles.createCustomerButtonImport}><Text style={styles.createCustomerButtonText}>Import From Contacts</Text></Pressable>
+          </View> : <Pressable onPress={changeContactModal} style={styles.createNewCustomerButton}><Text style={styles.createNewCustomerText}>Create New Contact</Text></Pressable>}
         </Pressable>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  //? Modal For Creating New Customer
+  createCustomerContainer:{
+    display:'flex',
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    height: 80,
+  },
+
+  createCustomerButtonManual:{
+    backgroundColor:"#8ecae6",
+    height: '100%',
+    width: '50%',
+    textAlign:'center',
+    color: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  createCustomerButtonImport:{
+    backgroundColor:"#219ebc",
+    height: '100%',
+    width: '50%',
+    textAlign:'center',
+    color: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  createCustomerButtonText:{
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+
+  createNewCustomerButton:{
+    backgroundColor: '#023047',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems : 'center',
+  },
+  createNewCustomerText:{
+    color:'white',
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  footer:{
+    width: '100%',
+    height: 80,
+  },
+
+  //? Main Page
+
+
+
   container:{
     display:'flex',
+    flex : 1,
     alignItems: 'center',
     width: '100%',
   },
+
   button: {
     width: 100,
     height: 40,
@@ -156,6 +224,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+
+
+  mainContainer:{
+    flex : 1,
+    width: '100%',
+  },
 }
 )
 

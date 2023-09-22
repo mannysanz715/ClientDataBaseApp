@@ -8,13 +8,13 @@ import Home from "./Home.jsx";
 
 export default function Page() {
   //? State Setup
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState(false)
 
   //? Token Check
   useEffect(() => {
     (async ()=>{
       const tokenValue = await tokenService.getValueFor("tokenKey")
-      if(tokenValue) setToken(tokenValue)
+      if(tokenValue) setToken(true)
     })();
   }, [])
   //?Contacts Permisions
