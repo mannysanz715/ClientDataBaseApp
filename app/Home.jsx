@@ -25,8 +25,13 @@ export default function Home (){
 
   useEffect(() => {
     (async ()=>{
-      const allCustomers = await customerService.getAllCustomers()
-      setCustomers(allCustomers.reverse())
+      let allCustomers = await customerService.getAllCustomers()
+      allCustomers =  allCustomers.sort(function(a, b){
+        if(a.name < b.name) return -1
+        if(b.name < a.name) return 1
+        return 0
+      })
+      setCustomers(allCustomers)
       })();
   },[]);
 
