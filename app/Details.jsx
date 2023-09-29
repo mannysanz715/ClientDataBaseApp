@@ -43,16 +43,6 @@ function Details () {
 )
 }
 
-
-
-
-
-
-
-
-
-
-
 export default Details
 
 const styles = StyleSheet.create({
